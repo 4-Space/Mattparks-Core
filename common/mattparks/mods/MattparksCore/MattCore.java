@@ -17,10 +17,17 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(name = MattCore.NAME, version = Version.LOCALMAJVERSION + "." + Version.LOCALMINVERSION + "." + Version.LOCALBUILDVERSION, useMetadata = true, modid = MattCore.MODID)
+@Mod(name = MattCore.NAME, version = MattCore.LOCALMAJMattCore + "." + MattCore.LOCALMINMattCore + "." + MattCore.LOCALBUILDMattCore, useMetadata = true, modid = MattCore.MODID)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class MattCore
 {
+	public static final int LOCALMAJMattCore = 2;
+	public static final int LOCALMINMattCore = 1;
+	public static final int LOCALBUILDMattCore = 1;
+	public static int remoteMajVer;
+	public static int remoteMinVer;
+	public static int remoteBuildVer;
+	
 	public static final String NAME = "Mattparks Core";
 	public static final String MODID = "MattCore";
 	public static final String CHANNEL = "MattCore";

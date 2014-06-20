@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import mattparks.mods.space.core.Version;
 import mekanism.api.EnumColor;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.client.FMLClientHandler;
