@@ -28,12 +28,14 @@ public class ConfigManager
         {
             ConfigManager.configuration.load();
             
-            ConfigManager.capesEnabled = ConfigManager.configuration.get("Capes", "Enable Mattparks Capes", true).getBoolean(true);
+            ConfigManager.capesEnabled = ConfigManager.configuration.get(Configuration.CATEGORY_GENERAL, "Enable Mattparks donator capes", true).getBoolean(true);
         }
+        
         catch (final Exception e)
         {
             FMLLog.log(Level.SEVERE, e, "Mattparks Config has a problem loading it's configuration");
         }
+        
         finally
         {
             ConfigManager.configuration.save();

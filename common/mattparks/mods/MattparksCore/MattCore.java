@@ -13,12 +13,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(name = MattCore.NAME, version = Version.LOCALMAJVERSION + "." + Version.LOCALMINVERSION + "." + Version.LOCALBUILDVERSION + "-" + Version.LOCALGITVERSION, useMetadata = true, modid = MattCore.MODID)
+@Mod(name = MattCore.NAME, version = Version.LOCALMAJVERSION + "." + Version.LOCALMINVERSION + "." + Version.LOCALBUILDVERSION, useMetadata = true, modid = MattCore.MODID)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class MattCore
 {
@@ -36,7 +35,7 @@ public class MattCore
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		new ConfigManager(new File(event.getModConfigurationDirectory(), "mattparks.conf"));
+		new ConfigManager(new File(event.getModConfigurationDirectory(), "MattparksCore.conf"));
 		
 		MattCore.proxy.preInit(event);
 	}
@@ -49,12 +48,6 @@ public class MattCore
             MinecraftForge.EVENT_BUS.register(new EventCapeRender());
         }
     }
-    
-	@EventHandler
-	public void serverInit(FMLServerStartedEvent event)
-	{
-		;
-	}
 
 	@EventHandler
 	public void postLoad(FMLPostInitializationEvent event)
@@ -78,32 +71,12 @@ public class MattCore
 	@EventHandler
 	public void load(FMLInitializationEvent event)
 	{
-		this.registerTileEntities();
-		this.registerCreatures();
-		this.registerOtherEntities();
 		MattCore.proxy.init(event);
 	}
 	
-
 	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event)
+	public void serverInit(FMLServerStartedEvent event)
 	{
-		;
+		Util.checkVersion(Side.SERVER);
 	}
-	
-	public void registerTileEntities()
-	{
-		;
-	}
-
-	public void registerCreatures()
-	{
-		;
-	}
-
-	public void registerOtherEntities()
-	{
-		;
-	}
-
 }
