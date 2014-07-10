@@ -1,4 +1,4 @@
-package mekanism.api;
+package mattparks.mods.MattparksCore.util;
 
 import net.minecraft.util.StatCollector;
 

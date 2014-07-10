@@ -1,12 +1,11 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import mattparks.mods.space.core.Version;
-import mekanism.api.EnumColor;
+import mattparks.mods.MattparksCore.MattCore;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -38,11 +37,11 @@ public class ThreadVersionCheck extends Thread
 			return;
 		}
 
-		while (this.count < 3 && Version.remoteBuildVer == 0)
+		while (this.count < 3 && MattCore.remoteBuildVer == 0)
 		{
 			try
 			{
-				final URL url = new URL(" http://version.mattparks.hostei.com/MattCore.html");
+				final URL url = new URL(" http://version.mattparks.webatu.com/MattCore.html");
 				final HttpURLConnection http = (HttpURLConnection) url.openConnection();
 				http.addRequestProperty("User-Agent", "Mozilla/4.76");
 				final BufferedReader in = new BufferedReader(new InputStreamReader(http.getInputStream()));
@@ -60,23 +59,23 @@ public class ThreadVersionCheck extends Thread
 
 						if (str2 != null && str2.length == 3)
 						{
-							Version.remoteMajVer = Integer.parseInt(str2[0]);
-							Version.remoteMinVer = Integer.parseInt(str2[1]);
-							Version.remoteBuildVer = Integer.parseInt(str2[2]);
+							MattCore.remoteMajVer = Integer.parseInt(str2[0]);
+							MattCore.remoteMinVer = Integer.parseInt(str2[1]);
+							MattCore.remoteBuildVer = Integer.parseInt(str2[2]);
 						}
 
-						if (Version.remoteMajVer > Version.LOCALMAJVERSION || Version.remoteMajVer == Version.LOCALMAJVERSION && Version.remoteMinVer > Version.LOCALMINVERSION || Version.remoteMajVer == Version.LOCALMAJVERSION && Version.remoteMinVer == Version.LOCALMINVERSION && Version.remoteBuildVer > Version.LOCALBUILDVERSION)
+						if (MattCore.remoteMajVer > MattCore.LOCALMAJVERSION || MattCore.remoteMajVer == MattCore.LOCALMAJVERSION && MattCore.remoteMinVer > MattCore.LOCALMINVERSION || MattCore.remoteMajVer == MattCore.LOCALMAJVERSION && MattCore.remoteMinVer == MattCore.LOCALMINVERSION && MattCore.remoteBuildVer > MattCore.LOCALBUILDVERSION)
 						{
 							Thread.sleep(5000);
 
 							if (sideToCheck.equals(Side.CLIENT))
 							{
-								FMLClientHandler.instance().getClient().thePlayer.addChatMessage(EnumColor.GREY + "New " + EnumColor.DARK_AQUA + "Mattparks mods" + EnumColor.GREY + " versions available! v" + String.valueOf(Version.remoteMajVer) + "." + String.valueOf(Version.remoteMinVer) + "." + String.valueOf(Version.remoteBuildVer) + EnumColor.DARK_BLUE + " http://mattparks.hostei.com");
+								FMLClientHandler.instance().getClient().thePlayer.addChatMessage(EnumColor.GREY + "New " + EnumColor.DARK_AQUA + "Mattparks mods" + EnumColor.GREY + " versions available! v" + String.valueOf(MattCore.remoteMajVer) + "." + String.valueOf(MattCore.remoteMinVer) + "." + String.valueOf(MattCore.remoteBuildVer) + EnumColor.DARK_BLUE + " http://mattparks.webatu.com");
 							}
 							
 							else if (sideToCheck.equals(Side.SERVER))
 							{
-								Log.severe("New Mattparks Mod versions available! v" + String.valueOf(Version.remoteMajVer) + "." + String.valueOf(Version.remoteMinVer) + "." + String.valueOf(Version.remoteBuildVer) + " http://mattparks.hostei.com");
+								MCLog.severe("New Mattparks Mod versions available! v" + String.valueOf(MattCore.remoteMajVer) + "." + String.valueOf(MattCore.remoteMinVer) + "." + String.valueOf(MattCore.remoteBuildVer) + " http://mattparks.webatu.com");
 							}
 						}
 					}
@@ -87,11 +86,11 @@ public class ThreadVersionCheck extends Thread
 			{
 			}
 
-			if (Version.remoteBuildVer == 0)
+			if (MattCore.remoteBuildVer == 0)
 			{
 				try
 				{
-					Log.severe(StatCollector.translateToLocal("mattcore.failed.name"));
+					MCLog.severe(StatCollector.translateToLocal("mattcore.failed.name"));
 					Thread.sleep(15000);
 				}
 				
@@ -102,7 +101,7 @@ public class ThreadVersionCheck extends Thread
 			
 			else
 			{
-				Log.info(StatCollector.translateToLocal("mattcore.success.name") + " " + Version.remoteMajVer + "." + Version.remoteMinVer + "." + Version.remoteBuildVer);
+				MCLog.info(StatCollector.translateToLocal("mattcore.success.name") + " " + MattCore.remoteMajVer + "." + MattCore.remoteMinVer + "." + MattCore.remoteBuildVer);
 			}
 
 			this.count++;

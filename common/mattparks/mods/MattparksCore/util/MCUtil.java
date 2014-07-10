@@ -1,8 +1,8 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.util;
 
 import cpw.mods.fml.relauncher.Side;
 
-public class Util
+public class MCUtil
 {
 	public static void checkVersion(Side side)  
 	{

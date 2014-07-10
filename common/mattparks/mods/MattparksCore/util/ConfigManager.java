@@ -1,4 +1,4 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.util;
 
 import java.io.File;
 import java.util.logging.Level;

@@ -2,6 +2,10 @@ package mattparks.mods.MattparksCore;
 
 import java.io.File;
 
+import mattparks.mods.MattparksCore.event.EventCapeRender;
+import mattparks.mods.MattparksCore.proxy.CommonProxy;
+import mattparks.mods.MattparksCore.util.ConfigManager;
+import mattparks.mods.MattparksCore.util.MCUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraftforge.common.MinecraftForge;
@@ -17,13 +21,13 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(name = MattCore.NAME, version = MattCore.LOCALMAJMattCore + "." + MattCore.LOCALMINMattCore + "." + MattCore.LOCALBUILDMattCore, useMetadata = true, modid = MattCore.MODID)
+@Mod(name = MattCore.NAME, version = MattCore.LOCALMAJVERSION + "." + MattCore.LOCALMINVERSION + "." + MattCore.LOCALBUILDVERSION, useMetadata = true, modid = MattCore.MODID)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class MattCore
 {
-	public static final int LOCALMAJMattCore = 2;
-	public static final int LOCALMINMattCore = 1;
-	public static final int LOCALBUILDMattCore = 1;
+	public static final int LOCALMAJVERSION = 2;
+	public static final int LOCALMINVERSION = 1;
+	public static final int LOCALBUILDVERSION = 3;
 	public static int remoteMajVer;
 	public static int remoteMinVer;
 	public static int remoteBuildVer;
@@ -33,7 +37,7 @@ public class MattCore
 	public static final String CHANNEL = "MattCore";
 	public static final String CHANNELENTITIES = "MattCoreEntities";
 
-	@SidedProxy(clientSide = "mattparks.mods.MattparksCore.ClientProxy", serverSide = "mattparks.mods.MattparksCore.CommonProxy")
+	@SidedProxy(clientSide = "mattparks.mods.MattparksCore.proxy.ClientProxy", serverSide = "mattparks.mods.MattparksCore.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	@Instance(MattCore.MODID)
@@ -84,6 +88,6 @@ public class MattCore
 	@EventHandler
 	public void serverInit(FMLServerStartedEvent event)
 	{
-		Util.checkVersion(Side.SERVER);
+		MCUtil.checkVersion(Side.SERVER);
 	}
 }

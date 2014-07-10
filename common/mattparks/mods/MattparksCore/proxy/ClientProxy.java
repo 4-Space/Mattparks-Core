@@ -1,4 +1,4 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.proxy;
 
 import java.util.EnumSet;
 

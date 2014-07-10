@@ -1,7 +1,8 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.network;
 
 import java.util.EnumSet;
 
+import mattparks.mods.MattparksCore.util.MCUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -26,7 +27,7 @@ public class TickHandlerClient implements ITickHandler
 
 			if (world != null && TickHandlerClient.checkedVersion)
 			{
-				Util.checkVersion(Side.CLIENT);
+				MCUtil.checkVersion(Side.CLIENT);
 				TickHandlerClient.checkedVersion = false; 
 			}
 	}

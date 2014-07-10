@@ -1,4 +1,4 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.proxy;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

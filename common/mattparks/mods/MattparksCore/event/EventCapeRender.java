@@ -1,4 +1,4 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.event;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
+import mattparks.mods.MattparksCore.util.ConfigManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;

@@ -1,10 +1,10 @@
-package mattparks.mods.MattparksCore;
+package mattparks.mods.MattparksCore.util;
 
 import java.util.logging.Level;
 
 import cpw.mods.fml.relauncher.FMLRelaunchLog;
 
-public class Log
+public class MCLog
 {
 	public static void info(String message)
 	{
