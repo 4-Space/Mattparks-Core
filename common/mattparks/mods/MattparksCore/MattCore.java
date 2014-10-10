@@ -25,9 +25,9 @@ import cpw.mods.fml.relauncher.Side;
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class MattCore
 {
-	public static final int LOCALMAJVERSION = 2;
-	public static final int LOCALMINVERSION = 1;
-	public static final int LOCALBUILDVERSION = 4;
+	public static final int LOCALMAJVERSION = 3;
+	public static final int LOCALMINVERSION = 0;
+	public static final int LOCALBUILDVERSION = 1;
 	public static int remoteMajVer;
 	public static int remoteMinVer;
 	public static int remoteBuildVer;
