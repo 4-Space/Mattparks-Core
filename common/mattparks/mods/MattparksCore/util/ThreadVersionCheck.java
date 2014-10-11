@@ -13,18 +13,18 @@ import cpw.mods.fml.relauncher.Side;
 
 public class ThreadVersionCheck extends Thread
 {
+	public static void startCheck(Side sideToCheck)
+	{
+		final Thread thread = new Thread(ThreadVersionCheck.instance);
+		thread.start();
+	}
 	public static ThreadVersionCheck instance = new ThreadVersionCheck();
+
 	private int count = 0;
 
 	public ThreadVersionCheck()
 	{
 		super("Mattparks Version Check Thread");
-	}
-
-	public static void startCheck(Side sideToCheck)
-	{
-		final Thread thread = new Thread(ThreadVersionCheck.instance);
-		thread.start();
 	}
 
 	@Override

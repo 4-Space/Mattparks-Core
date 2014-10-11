@@ -17,6 +17,25 @@ public class TickHandlerClient implements ITickHandler
 	private static long tickCount;
 
 	@Override
+	public String getLabel()
+	{
+		return "Mattparks Core Client";
+	}
+	
+		
+	@Override
+	public void tickEnd(EnumSet<TickType> type, Object... tickData)
+	{
+		final Minecraft minecraft = FMLClientHandler.instance().getClient();
+	}
+
+	@Override
+	public EnumSet<TickType> ticks()
+	{
+		return EnumSet.of(TickType.RENDER, TickType.CLIENT); 
+	}
+
+	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
 		final Minecraft minecraft = FMLClientHandler.instance().getClient();
@@ -30,24 +49,5 @@ public class TickHandlerClient implements ITickHandler
 				MCUtil.checkVersion(Side.CLIENT);
 				TickHandlerClient.checkedVersion = false; 
 			}
-	}
-	
-		
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData)
-	{
-		final Minecraft minecraft = FMLClientHandler.instance().getClient();
-	}
-
-	@Override
-	public String getLabel()
-	{
-		return "Mattparks Core Client";
-	}
-
-	@Override
-	public EnumSet<TickType> ticks()
-	{
-		return EnumSet.of(TickType.RENDER, TickType.CLIENT); 
 	}
 }

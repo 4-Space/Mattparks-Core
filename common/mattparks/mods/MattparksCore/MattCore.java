@@ -44,14 +44,6 @@ public class MattCore
 	public static MattCore instance;
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		new ConfigManager(new File(event.getModConfigurationDirectory(), "MattparksCore.conf"));
-		
-		MattCore.proxy.preInit(event);
-	}
-
-    @EventHandler
     public void init (FMLInitializationEvent event)
     {
         if (event.getSide() == Side.CLIENT)
@@ -60,6 +52,12 @@ public class MattCore
         }
     }
 
+    @EventHandler
+	public void load(FMLInitializationEvent event)
+	{
+		MattCore.proxy.init(event);
+	}
+
 	@EventHandler
 	public void postLoad(FMLPostInitializationEvent event)
 	{
@@ -67,22 +65,24 @@ public class MattCore
 		MattCore.proxy.registerRenderInformation();
 	}
 
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		new ConfigManager(new File(event.getModConfigurationDirectory(), "MattparksCore.conf"));
+		
+		MattCore.proxy.preInit(event);
+	}
+
 	public void registerGalacticraftCreature(Class<? extends Entity> var0, String var1, int id, int back, int fore)
 	{
 		EntityRegistry.registerGlobalEntityID(var0, var1, id, back, fore);
 		EntityRegistry.registerModEntity(var0, var1, id, MattCore.instance, 80, 3, true);
 	}
-
+	
 	public void registerGalacticraftNonMobEntity(Class<? extends Entity> var0, String var1, int id, int trackingDistance, int updateFreq, boolean sendVel)
 	{
 		EntityList.addMapping(var0, var1, id);
 		EntityRegistry.registerModEntity(var0, var1, id, this, trackingDistance, updateFreq, sendVel);
-	}
-	
-	@EventHandler
-	public void load(FMLInitializationEvent event)
-	{
-		MattCore.proxy.init(event);
 	}
 	
 	@EventHandler

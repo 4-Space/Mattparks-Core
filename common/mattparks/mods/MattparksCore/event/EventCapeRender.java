@@ -23,11 +23,65 @@ import cpw.mods.fml.common.Loader;
 
 public class EventCapeRender
 {
+    private class CloakPreload implements Runnable
+    {
+        String cloakURL;
+
+        public CloakPreload(String link)
+        {
+            cloakURL = link;
+        }
+
+        @Override
+        public void run ()
+        {
+            try
+            {
+                TEST_GRAPHICS.drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
+            }
+            
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+    private class CloakThread implements Runnable
+    {
+
+        AbstractClientPlayer abstractClientPlayer;
+        String cloakURL;
+
+        public CloakThread(AbstractClientPlayer player, String cloak)
+        {
+            abstractClientPlayer = player;
+            cloakURL = cloak;
+        }
+
+        @Override
+        public void run ()
+        {
+            try
+            {
+                Image cape = new ImageIcon(new URL(cloakURL)).getImage();
+                BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                bo.getGraphics().drawImage(cape, 0, 0, null);
+                abstractClientPlayer.getTextureCape().bufferedImage = bo;
+            }
+            
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private final String serverLocation = "https://raw.githubusercontent.com/4-Space/Mattparks-Core/master/capes.txt";
     private final int timeout = 1000;
-
     private static final Graphics TEST_GRAPHICS = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB).getGraphics();
+
     private HashMap<String, String> cloaks = new HashMap<String, String>();
+
     private ArrayList<AbstractClientPlayer> capePlayers = new ArrayList<AbstractClientPlayer>();
 
     public static EventCapeRender instance;
@@ -36,35 +90,6 @@ public class EventCapeRender
     {
         buildCloakURLDatabase(serverLocation);
         instance = this;
-    }
-
-    @ForgeSubscribe
-    public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event)
-    {
-        if (Loader.isModLoaded("shadersmod") || !ConfigManager.capesEnabled)
-        {
-            return;
-        }
-        
-        if (event.entityPlayer instanceof AbstractClientPlayer)
-        {
-            AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
-
-            if (!capePlayers.contains(abstractClientPlayer))
-            {
-                String cloakURL = cloaks.get(event.entityPlayer.username);
-
-                if (cloakURL == null)
-                {
-                    return;
-                }
-                capePlayers.add(abstractClientPlayer);
-                abstractClientPlayer.getTextureCape().textureUploaded = false;
-                new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
-                event.renderCape = true;
-
-            }
-        }
     }
 
     public void buildCloakURLDatabase (String location)
@@ -117,56 +142,31 @@ public class EventCapeRender
         }
     }
 
-    private class CloakThread implements Runnable
+    @ForgeSubscribe
+    public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event)
     {
-
-        AbstractClientPlayer abstractClientPlayer;
-        String cloakURL;
-
-        public CloakThread(AbstractClientPlayer player, String cloak)
+        if (Loader.isModLoaded("shadersmod") || !ConfigManager.capesEnabled)
         {
-            abstractClientPlayer = player;
-            cloakURL = cloak;
+            return;
         }
-
-        @Override
-        public void run ()
+        
+        if (event.entityPlayer instanceof AbstractClientPlayer)
         {
-            try
-            {
-                Image cape = new ImageIcon(new URL(cloakURL)).getImage();
-                BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                bo.getGraphics().drawImage(cape, 0, 0, null);
-                abstractClientPlayer.getTextureCape().bufferedImage = bo;
-            }
-            
-            catch (MalformedURLException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
+            AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
 
-    private class CloakPreload implements Runnable
-    {
-        String cloakURL;
-
-        public CloakPreload(String link)
-        {
-            cloakURL = link;
-        }
-
-        @Override
-        public void run ()
-        {
-            try
+            if (!capePlayers.contains(abstractClientPlayer))
             {
-                TEST_GRAPHICS.drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
-            }
-            
-            catch (MalformedURLException e)
-            {
-                e.printStackTrace();
+                String cloakURL = cloaks.get(event.entityPlayer.username);
+
+                if (cloakURL == null)
+                {
+                    return;
+                }
+                capePlayers.add(abstractClientPlayer);
+                abstractClientPlayer.getTextureCape().textureUploaded = false;
+                new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
+                event.renderCape = true;
+
             }
         }
     }
