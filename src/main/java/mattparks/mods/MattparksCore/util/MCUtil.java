@@ -4,8 +4,8 @@ import cpw.mods.fml.relauncher.Side;
 
 public class MCUtil
 {
-	public static void checkVersion(Side side)  
+	public static void checkVersion(Side side)
 	{
-		ThreadVersionCheck.startCheck(side);   
-	}  
+		ThreadVersionCheck.startCheck(side);
+	}
 }

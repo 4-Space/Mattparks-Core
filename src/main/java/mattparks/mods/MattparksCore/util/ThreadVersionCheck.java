@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import mattparks.mods.MattparksCore.MattCore;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -13,14 +15,14 @@ import cpw.mods.fml.relauncher.Side;
 
 public class ThreadVersionCheck extends Thread
 {
+	public static ThreadVersionCheck instance = new ThreadVersionCheck();
+	private int count = 0;
+
 	public static void startCheck(Side sideToCheck)
 	{
 		final Thread thread = new Thread(ThreadVersionCheck.instance);
 		thread.start();
 	}
-	public static ThreadVersionCheck instance = new ThreadVersionCheck();
-
-	private int count = 0;
 
 	public ThreadVersionCheck()
 	{
@@ -50,7 +52,6 @@ public class ThreadVersionCheck extends Thread
 
 				while ((str = in.readLine()) != null)
 				{
-
 					if (str.contains("Version"))
 					{
 						str = str.replace("Version=", "");
@@ -70,9 +71,9 @@ public class ThreadVersionCheck extends Thread
 
 							if (sideToCheck.equals(Side.CLIENT))
 							{
-								FMLClientHandler.instance().getClient().thePlayer.addChatMessage(EnumColor.GREY + "New " + EnumColor.DARK_AQUA + "Mattparks mods" + EnumColor.GREY + " versions available! v" + String.valueOf(MattCore.remoteMajVer) + "." + String.valueOf(MattCore.remoteMinVer) + "." + String.valueOf(MattCore.remoteBuildVer) + EnumColor.DARK_BLUE + " http://mattparks.webatu.com");
+								FMLClientHandler.instance().getClient().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GRAY + "New " + EnumChatFormatting.DARK_AQUA + "Mattparks mods" + EnumChatFormatting.GRAY + " versions available! v" + String.valueOf(MattCore.remoteMajVer) + "." + String.valueOf(MattCore.remoteMinVer) + "." + String.valueOf(MattCore.remoteBuildVer) + EnumChatFormatting.DARK_BLUE + " http://mattparks.webatu.com"));
 							}
-							
+
 							else if (sideToCheck.equals(Side.SERVER))
 							{
 								MCLog.severe("New Mattparks Mod versions available! v" + String.valueOf(MattCore.remoteMajVer) + "." + String.valueOf(MattCore.remoteMinVer) + "." + String.valueOf(MattCore.remoteBuildVer) + " http://mattparks.webatu.com");
@@ -81,7 +82,6 @@ public class ThreadVersionCheck extends Thread
 					}
 				}
 			}
-			
 			catch (final Exception e)
 			{
 			}
@@ -93,17 +93,14 @@ public class ThreadVersionCheck extends Thread
 					MCLog.severe(StatCollector.translateToLocal("mattcore.failed.name"));
 					Thread.sleep(15000);
 				}
-				
 				catch (final InterruptedException e)
 				{
 				}
 			}
-			
 			else
 			{
 				MCLog.info(StatCollector.translateToLocal("mattcore.success.name") + " " + MattCore.remoteMajVer + "." + MattCore.remoteMinVer + "." + MattCore.remoteBuildVer);
 			}
-
 			this.count++;
 		}
 	}
