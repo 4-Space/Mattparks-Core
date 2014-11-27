@@ -1,5 +1,17 @@
 # Mattparks Core Language File = RUSSIA RUSSIAN
 
-# OTHER
-mattcore.failed.name=MattparksCore проверка обновлений не удалfсь! Попытка через 15 секунд
-mattcore.success.name=Найдена новая версия мода Mattparks в:
+# GENERAL ITEMS
+
+# TOOLS
+
+# ARMOR
+
+# BLOCKS
+
+# GUI
+mattcore.failed.name = Mattparks проверки версии удалось
+mattcore.success.name = Mattparks проверки версии успеха
+
+# Schematics
+
+# Entity

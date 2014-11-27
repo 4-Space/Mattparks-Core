@@ -1,4 +1,4 @@
-# Mattparks Core Language File = UNITED STATES ENGLISH
+# Mattparks Core Language File = BRITISH ENGLISH
 
 # GENERAL ITEMS
 
@@ -12,6 +12,7 @@
 mattcore.failed.name=Mattparks Version Check Failed
 mattcore.success.name=Mattparks Version Check Success
 
-# SCHEMATICS
+# Schematics
 
 # Entity
+
